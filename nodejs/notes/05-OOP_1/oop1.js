@@ -110,7 +110,7 @@ const newArray = ['value5', ...testArray, 'value6']
 // const newArray = ['value0', 'value1', 'value2', 'value3','value4', 'value5', 'value6']
 console.log(newArray);
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 //? OBJECT DESTRUCTURING
 
 const Car = {
@@ -166,6 +166,10 @@ console.log(arrAll);
 /* ------------------------------------------------------- */
 //? CONSTRUCTORS
 
+const constructorFunction = function() {
+
+    this.property = 'value'
+}
 
 
 /* ------------------------------------------------------- */
