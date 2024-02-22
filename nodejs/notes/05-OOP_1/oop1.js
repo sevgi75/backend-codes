@@ -22,23 +22,23 @@
 
 /* ------------------------------------------------------- */
 
-const Car = {
+// const Car = {
 
-    brand: 'Ford',
-    model: 'Mustang',
-    year: 1967,
-    isAutoGear: true,
-    colors: ['white', 'red'],
-    details: {
-        color1: 'white',
-        color2: 'red',
-        engineSize: 4900
-    },
-    startEngine: function(param1){
-        console.log(param1);
-        return 'Engine runned'
-    }
-}
+//     brand: 'Ford',
+//     model: 'Mustang',
+//     year: 1967,
+//     isAutoGear: true,
+//     colors: ['white', 'red'],
+//     details: {
+//         color1: 'white',
+//         color2: 'red',
+//         engineSize: 4900
+//     },
+//     startEngine: function(param1){
+//         console.log(param1);
+//         return 'Engine runned'
+//     }
+// }
 
 // console.log(Car.brand);
 // console.log(Car.colors);
@@ -48,13 +48,14 @@ const Car = {
 // console.log(Car.startEngine('value'));
 
 // Alternative Style
-console.log(Car['brand']);
-console.log(Car['colors'][0]);
-console.log(Car['details']['engineSize']);
-console.log(Car['startEngine'](0));
+// console.log(Car['brand']);
+// console.log(Car['colors'][0]);
+// console.log(Car['details']['engineSize']);
+// console.log(Car['startEngine'](0));
 
 
-/* ------------------------------------------------------- *
+/* ------------------------------------------------------- */
+//? 'THIS' KEYWORD
 
 const Car = {
 
@@ -74,15 +75,16 @@ const Car = {
     },
     getDetails: function() {
         // return this
-        return this.brand + ' ' + this.model + ' ' + this.year
+        // return this.brand + ' ' + this.model + ' ' + this.year
+        return this.startEngine('selam')
     },
     arrowMethod: () => {
         //return this
         return Car.brand
     }
 }
-//  console.log(Car.getDetails());
- console.log(Car.arrowMethod());
+ console.log(Car.getDetails());
+//  console.log(Car.arrowMethod());
 
 /* ------------------------------------------------------- *
 //? ARRAY DESTRUCTURING
