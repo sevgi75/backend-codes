@@ -86,7 +86,7 @@ const Car = {
  console.log(Car.getDetails());
 //  console.log(Car.arrowMethod());
 
-/* ------------------------------------------------------- *
+/* ------------------------------------------------------- */
 //? ARRAY DESTRUCTURING
 
 const testArray = ['value0', 'value1', 'value2', 'value3', 'value4']
@@ -105,7 +105,10 @@ console.log(var0, var1, var2, var9);
 // const [firstItem, secondItem, ...others] = testArray
 // console.log(firstItem, secondItem, others)
 
-
+//? Spread Operator (Dağıtıcı) (Eşittirin sağ tarafında)
+const newArray = ['value5', ...testArray, 'value6']
+// const newArray = ['value0', 'value1', 'value2', 'value3','value4', 'value5', 'value6']
+console.log(newArray);
 
 /* ------------------------------------------------------- *
 
