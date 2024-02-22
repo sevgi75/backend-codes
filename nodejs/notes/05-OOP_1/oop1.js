@@ -172,7 +172,7 @@ const constructorFunction = function() {
 }
 
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 //? "NEW" KEYWORD
 
 const carConstructor = function(brand, model, year) {
