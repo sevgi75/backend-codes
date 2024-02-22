@@ -54,7 +54,7 @@
 // console.log(Car['startEngine'](0));
 
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 //? 'THIS' KEYWORD
 
 const Car = {
@@ -86,14 +86,24 @@ const Car = {
  console.log(Car.getDetails());
 //  console.log(Car.arrowMethod());
 
-/* ------------------------------------------------------- *
+/* ------------------------------------------------------- */
 //? ARRAY DESTRUCTURING
 
 const testArray = ['value0', 'value1', 'value2', 'value3', 'value4']
 
+// const var0 = testArray[0]
+// const var1 = testArray[1]
+// const var2 = testArray[2]
+// const var9 = testArray.slice(3,5)
+// console.log(var0, var1, var2, var9);
+
+//? Sıralama Önemli
+const [var0, var1, var2, ...var9] = testArray
+console.log(var0, var1, var2, var9);
+
 //? Rest Operator (Toplayıcı) (Eşittirin sol tarafında) (En sonda olmak zorunda.)
-const [firstItem, secondItem, ...others] = testArray
-console.log(firstItem, secondItem, others)
+// const [firstItem, secondItem, ...others] = testArray
+// console.log(firstItem, secondItem, others)
 
 
 
