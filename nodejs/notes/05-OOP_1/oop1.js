@@ -163,7 +163,7 @@ console.log(arrValue);
 // Entries (key, value)
 const arrAll = Object.entries(Car)
 console.log(arrAll);
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 //? CONSTRUCTORS
 
 const constructorFunction = function() {
@@ -174,6 +174,26 @@ const constructorFunction = function() {
 
 /* ------------------------------------------------------- */
 //? "NEW" KEYWORD
+
+const carConstructor = function(brand, model, year) {
+    this.brand = brand
+    this.model = model
+    this.year = year
+
+    this.startEngine = function() {
+        console.log('Engine runned');
+    }
+}
+
+const newCar = new carConstructor('Ford', 'Mustang', 1967)
+console.log(typeof newCar, newCar);
+console.log(newCar.brand);
+console.log(newCar.startEngine());
+
+const newCar2 = new carConstructor('Mercedes', 'CLK200', 2015)
+console.log(typeof newCar2, newCar2);
+console.log(newCar2.brand);
+console.log(newCar2.startEngine());
 
 /* ------------------------------------------------------- */
 
