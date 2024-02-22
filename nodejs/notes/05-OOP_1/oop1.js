@@ -86,7 +86,7 @@ const Car = {
  console.log(Car.getDetails());
 //  console.log(Car.arrowMethod());
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 //? ARRAY DESTRUCTURING
 
 const testArray = ['value0', 'value1', 'value2', 'value3', 'value4']
@@ -110,7 +110,8 @@ const newArray = ['value5', ...testArray, 'value6']
 // const newArray = ['value0', 'value1', 'value2', 'value3','value4', 'value5', 'value6']
 console.log(newArray);
 
-/* ------------------------------------------------------- *
+/* ------------------------------------------------------- */
+//? OBJECT DESTRUCTURING
 
 const Car = {
 
@@ -129,8 +130,39 @@ const Car = {
     }
 }
 
+//? Rest Operator (Key isimleri önemli!)
+// const {year, model, brand, ...others} = Car
+// console.log(year, model, brand, others);
 
+// isim değiştirme
+const {year, model: newName, brand, ...others} = Car
+console.log(year, newName, brand, others);
 
+//? Spread operatoru
+const newObj = {
+    ...Car,
+    newKey: 'new-value'
+}
+console.log(newObj);
+
+//? Object to JSON
+const json = JSON.stringify(Car)
+console.log(typeof json, json);
+
+//? JSON to Object
+const obj = JSON.parse(json)
+console.log(typeof obj, obj.brand);
+
+//? Object to Array
+// Keys
+const arrKey = Object.keys(Car)
+console.log(arrKey);
+// Values
+const arrValue = Object.values(Car)
+console.log(arrValue);
+// Entries (key, value)
+const arrAll = Object.entries(Car)
+console.log(arrAll);
 /* ------------------------------------------------------- */
 //? CONSTRUCTORS
 
