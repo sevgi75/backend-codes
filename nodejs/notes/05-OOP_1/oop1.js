@@ -86,7 +86,7 @@ const Car = {
  console.log(Car.getDetails());
 //  console.log(Car.arrowMethod());
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 //? ARRAY DESTRUCTURING
 
 const testArray = ['value0', 'value1', 'value2', 'value3', 'value4']
