@@ -48,8 +48,9 @@ console.log(Mercedes);
 const Renault = new Car('Renault', 'Megane', 2010)
 console.log(Renault);
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 //? INHERITANCE: MirasAlma. Başka bir class'ın tüm özelliklerini/metodlarını devralma. (parent-child ilişkisi kurulur.)
+//? THIS: Child Class - SUPER: Parent Class
 
 class Vehicle {
 
@@ -63,15 +64,119 @@ class Car extends Vehicle { // Inheritance
 
     isRunning = false
 
-    // constructor (brand, model, year, vehicleType = 'Car') {
-    //     super(vehicleType)
+    constructor (brand, model, year, vehicleType = 'Car') {
+    //? super() parametresi en tepede olmalı (Önce parent constructor çalıştırılmalı)    
+        super(vehicleType)
+        this.brand = brand
+        this.model = model
+        this.year = year
+    }
+
+    // constructor (brand, model, year) {
+    //     super('Car')
     //     this.brand = brand
     //     this.model = model
     //     this.year = year
     // }
 
+    runEngine() {
+        this.isRunning = true
+        console.log('Engine runned')
+        return this.isRunning
+    }
+}
+
+// class Truck extends Vehicle {  ... }
+
+// const Ford = new Car('Ford', 'Mustang', 1967)
+// console.log(Ford);
+class Accessory extends Car {
+
+    constructor(accessoryName, brand, model, year, vehicleType) {
+        super(brand, model, year, vehicleType)
+        this.accessoryName = accessoryName
+    }
+}
+
+
+/* ------------------------------------------------------- */
+//? Polymorphism: Miras aldığımız sınıfın özellik/methodlarını yeniden yazabilme.
+//? -Override: Üst metodla aynı isim ve yapıda yeni bir metod yazma. (ezme / iptal etme / önceliğini alma)
+//? -Overload: Üst metodla aynı isimde ama farklı yapıda (farklı adet/tip) yeni method oluşturma. (aynı anda ikisi de aktif) (JS desteklemez)
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------------- *
+//? PROPERTY TYPES:
+//? -JS PUBLIC: Genel erişime açık.
+//? -JS PRIVATE: Sadece tanımlı olduğu class içinde erişim var.
+//? -JS PROTECTED: Sadece Tanımlı olduğu class ve Inherit edilen child-class erişebilir.
+
+class Vehicle {
+
+    vehicleIsActive = false  // PUBLIC PROPERTY
+    
+    #privateProperty = 'private-value' // PRIVATE PROPERTY
+    #privateMethod() { return this } // PRIVATE METHOD
+
+    _protectedProperty = 'protected-value' // PROTECTED PROPERTY
+    _protectedMethod() { return this } // PROTECTED METHOD
+
+    constructor (vehicleType) {
+        this.vehicleType = vehicleType
+    }
+
+    getDetails() {
+        console.log('Vehicle.getDetails runned.')
+        return this.vehicleType
+    }
+}
+
+class Car extends Vehicle { // Inheritance
+
+    isRunning = false
+
+    constructor (brand, model, year, vehicleType = 'Car') {
+        super(vehicleType)
+        this.brand = brand
+        this.model = model
+        this.year = year
+    }
+
+    runEngine() {
+        this.isRunning = true
+        console.log('Engine runned')
+        return this.isRunning
+    }
+    
+    getDetails() {
+        console.log('Car.getDetails runned.')
+        // return this
+        return super.getDetails() // Ezdiğimiz methodu çalıştırma yöntemi.
+    }
+}
+
+const Ford = new Car('Ford', 'Mustang', 1967)
+console.log(Ford.getDetails())
+
+
+/* ------------------------------------------------------- *
+//? GETTER & SETTER METHODS: Görevi veri getirme (getter) ve veri güncelleme (setter) olan metodlardır.
+//? "STATIC" KEYWORD: Class'dan direkt erişim. (Instance erişemez.)
+
+class Car {
+
+    isRunning = false
+
     constructor (brand, model, year) {
-        super('Car')
         this.brand = brand
         this.model = model
         this.year = year
@@ -84,9 +189,20 @@ class Car extends Vehicle { // Inheritance
     }
 }
 
-// class Truck extends Vehicle {  ... }
-
 const Ford = new Car('Ford', 'Mustang', 1967)
-console.log(Ford);
+console.log(Ford)
+
+
+
+
+/* ------------------------------------------------------- */
+//? ABSTRACTION: Soyutlama/Modelleme (Class ile obje üretebilme. Aynı amaç için kullanılan değişken ve methodların bir class içinde yazıyor olması)
+//? ENCAPCULLATION: Kapsülleme/Ayrıştırma (Kodların gizliliği, private değişkenlere erişilemiyor olması ve birbirinden bağımsız çalışmaları.)
+
+
+
+
+/* ------------------------------------------------------- */
+/* ------------------------------------------------------- */
 /* ------------------------------------------------------- */
 /* ------------------------------------------------------- */
