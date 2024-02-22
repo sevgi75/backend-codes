@@ -22,29 +22,36 @@
 
 /* ------------------------------------------------------- */
 
-// const Car = {
+const Car = {
 
-//     brand: 'Ford',
-//     model: 'Mustang',
-//     year: 1967,
-//     isAutoGear: true,
-//     colors: ['white', 'red'],
-//     details: {
-//         color1: 'white',
-//         color2: 'red',
-//         engineSize: 4900
-//     },
-//     startEngine: function(param1){
-//         console.log(param1);
-//         return 'Engine runned'
-//     }
-// }
+    brand: 'Ford',
+    model: 'Mustang',
+    year: 1967,
+    isAutoGear: true,
+    colors: ['white', 'red'],
+    details: {
+        color1: 'white',
+        color2: 'red',
+        engineSize: 4900
+    },
+    startEngine: function(param1){
+        console.log(param1);
+        return 'Engine runned'
+    }
+}
 
 // console.log(Car.brand);
 // console.log(Car.colors);
 // console.log(Car.colors[0]);
+// console.log(Car.details);
+// console.log(Car.details.color1);
+// console.log(Car.startEngine('value'));
 
 // Alternative Style
+console.log(Car['brand']);
+console.log(Car['colors'][0]);
+console.log(Car['details']['engineSize']);
+console.log(Car['startEngine'](0));
 
 
 /* ------------------------------------------------------- *
