@@ -2,7 +2,7 @@
 
 /* -------------------------------------------------------
     OOP & CLASSES
-------------------------------------------------------- *
+------------------------------------------------------- */
 //? OOP: Object Oriented Programming
 //? DRY: Don't Repeat Yourself
 //? BLUEPRINT: Taslak (Mimarların kullandığı mavi şablon kağıdı)
@@ -12,10 +12,29 @@
 // class PascalCaseClassName { ... }
 
 //* Class Expression:
+const PascalCaseClassName = class {
 
+    undefinedProperty  //only definition, (undefinedProperty==undefined)
+    propertyName = 'value' // attribute, field
 
+    //? "new Class" ile obje oluştururken parametre göndermek için "constructor" isminde bir method kullanırız.
+    constructor (parametre1, parametre2 = 'default-value') {
+        this.parametre1 = parametre1
+        this.parametre2 = parametre2
+    }
+
+    methodName1() {
+        return this
+    }
+}
 
 //? INSTANCE = Bir class'tan türetilen objedir
+
+const PascalCaseInstanceName = new PascalCaseClassName(0, 1)
+console.log(PascalCaseInstanceName);
+console.log(PascalCaseInstanceName.propertyName);
+console.log(PascalCaseInstanceName.parametre1);
+console.log(PascalCaseInstanceName.methodName1());
 
 /* ------------------------------------------------------- *
 
