@@ -2,7 +2,7 @@
 
 /* -------------------------------------------------------
     OOP & CLASSES
-------------------------------------------------------- */
+------------------------------------------------------- *
 //? OOP: Object Oriented Programming
 //? DRY: Don't Repeat Yourself
 //? BLUEPRINT: Taslak (Mimarların kullandığı mavi şablon kağıdı)
@@ -36,7 +36,7 @@ console.log(PascalCaseInstanceName.propertyName);
 console.log(PascalCaseInstanceName.parametre1);
 console.log(PascalCaseInstanceName.methodName1());
 
-/* ------------------------------------------------------- *
+/* ------------------------------------------------------- */
 
 class Car {
 
