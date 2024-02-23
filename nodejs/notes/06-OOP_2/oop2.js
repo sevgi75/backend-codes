@@ -36,7 +36,7 @@ console.log(PascalCaseInstanceName.propertyName);
 console.log(PascalCaseInstanceName.parametre1);
 console.log(PascalCaseInstanceName.methodName1());
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 
 class Car {
 
