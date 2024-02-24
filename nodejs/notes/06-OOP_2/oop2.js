@@ -67,7 +67,7 @@ console.log(Mercedes);
 const Renault = new Car('Renault', 'Megane', 2010)
 console.log(Renault);
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 //? INHERITANCE: MirasAlma. Başka bir class'ın tüm özelliklerini/metodlarını devralma. (parent-child ilişkisi kurulur.)
 //? THIS: Child Class - SUPER: Parent Class
 
