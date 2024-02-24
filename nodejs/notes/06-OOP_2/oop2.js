@@ -67,7 +67,7 @@ console.log(Mercedes);
 const Renault = new Car('Renault', 'Megane', 2010)
 console.log(Renault);
 
-/* ------------------------------------------------------- *
+/* ------------------------------------------------------- */
 //? INHERITANCE: MirasAlma. Başka bir class'ın tüm özelliklerini/metodlarını devralma. (parent-child ilişkisi kurulur.)
 //? THIS: Child Class - SUPER: Parent Class
 
@@ -92,6 +92,7 @@ class Car extends Vehicle { // Inheritance
     }
 
     // constructor (brand, model, year) {
+    //? super() parametresi en tepede olmalı (Önce parent constructor çalıştırılmalı)    
     //     super('Car')
     //     this.brand = brand
     //     this.model = model
@@ -116,6 +117,9 @@ class Accessory extends Car {
         this.accessoryName = accessoryName
     }
 }
+
+const FordClimate = new Accessory('Bosh Climate', 'Ford', 'Mustang', 1967, 'Car')
+console.log(FordClimate);
 
 
 /* ------------------------------------------------------- */
