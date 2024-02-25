@@ -122,20 +122,60 @@ const FordClimate = new Accessory('Bosh Climate', 'Ford', 'Mustang', 1967, 'Car'
 console.log(FordClimate);
 
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 //? Polymorphism: Miras aldığımız sınıfın özellik/methodlarını yeniden yazabilme.
 //? -Override: Üst metodla aynı isim ve yapıda yeni bir metod yazma. (ezme / iptal etme / önceliğini alma)
 //? -Overload: Üst metodla aynı isimde ama farklı yapıda (farklı adet/tip) yeni method oluşturma. (aynı anda ikisi de aktif) (JS desteklemez)
 
+class Vehicle {
 
+    vehicleIsActive = false
 
+    constructor(vehicleType) {
+        this.vehicleType = vehicleType
+    }
 
+    getDetails() {
+        console.log('Vehicle.getDetails runned');
+        return this.vehicleType
+    }
+}
+class Car extends Vehicle { // Inheritance
 
+    isRunning = false
 
+    constructor (brand, model, year, vehicleType = 'Car') {
+    //? super() parametresi en tepede olmalı (Önce parent constructor çalıştırılmalı)    
+        super(vehicleType)
+        this.brand = brand
+        this.model = model
+        this.year = year
+    }
 
+    runEngine() {
+        this.isRunning = true
+        console.log('Engine runned')
+        return this.isRunning
+    }
 
+    //? Override: Üstteki method ismi ile aynen/yeniden tanımlanması.
+    //? Override: Parent classdaki method ezildi.Artık bu geçerli.
+    getDetails() {
+        console.log('Car.getDetails runned');
+        // return this
+        return super.getDetails() // Ezdiğimiz metodu çalıştırma yöntemi
+    }
 
+    //? Overload: Üstteki metodun aynı isim ama farklı parametre adet/tip ile yeniden tanımlanması.
+    //? JS Desteklemez. Typescript destekler.
+    //? Çalışma prensibi: Çağrıldığı zaman parametreye göre ilgili method çalışır.
+    // getDetails(parametre1, parametre2) {
+    //     return this
+    // }
+}
 
+const Ford = new Car('Ford', 'Mustang', 1967)
+console.log(Ford.getDetails())
 
 /* ------------------------------------------------------- *
 //? PROPERTY TYPES:
