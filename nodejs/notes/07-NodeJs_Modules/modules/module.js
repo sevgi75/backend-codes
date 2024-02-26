@@ -56,6 +56,7 @@ module.exports.testFunctionC=function(){
 }
 module.exports.pi=3.14
 */
+/*
 module.exports={
     testFunctionA:function(){
     console.log("this is function A");
@@ -68,7 +69,7 @@ module.exports={
    },
    pi:3.14
 }
-
+*/
 
 
 
