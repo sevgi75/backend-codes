@@ -22,9 +22,17 @@ const testFunctionB=function(){
 const testFunctionC=function(){
     console.log("this is function C");
 }
-
+// array
+/*
 module.exports=[
     testFunctionA,
     testFunctionB,
     testFunctionC
 ]
+*/
+// obj
+module.exports={
+    testFunctionA:testFunctionA,
+    testFunctionB:testFunctionB,
+    testFunctionC:testFunctionC
+}

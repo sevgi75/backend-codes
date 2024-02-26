@@ -15,8 +15,13 @@ const testSingleFunction=require('./modules/module')
 
 
 //?multi function
+/*
 const [test1,test2,test3]=require('./modules/module')
 // test1()
 // test2()
 // test3()
+test1(), test2(), test3()
+*/
+const {testFunctionA:test1,testFunctionB:test2,testFunctionC:test3}=require('./modules/module')
+// testFunctionA()
 test1(), test2(), test3()
