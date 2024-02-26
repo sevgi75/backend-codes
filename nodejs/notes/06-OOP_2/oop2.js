@@ -177,11 +177,11 @@ class Car extends Vehicle { // Inheritance
 const Ford = new Car('Ford', 'Mustang', 1967)
 console.log(Ford.getDetails())
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 //? PROPERTY TYPES:
-//? -JS PUBLIC: Genel erişime açık.
-//? -JS PRIVATE: Sadece tanımlı olduğu class içinde erişim var.
-//? -JS PROTECTED: Sadece Tanımlı olduğu class ve Inherit edilen child-class erişebilir.(JS Desteklemez)
+//? -JS PUBLIC: Genel erişime açık.(Parent: Yes, Chlid: Yes, Instance: Yes)
+//? -JS PRIVATE: Sadece tanımlı olduğu class içinde erişim var.(Parent: Yes, Chlid: No, Instance: No)
+//? -JS PROTECTED: Sadece Tanımlı olduğu class ve Inherit edilen child-class erişebilir.(Parent: Yes, Chlid: Yes, Instance: No)(JS Desteklemez)
 
 class Vehicle {
 
@@ -234,13 +234,14 @@ const Ford = new Car('Ford', 'Mustang', 1967)
 console.log(Ford)
 
 
-/* ------------------------------------------------------- *
+/* ------------------------------------------------------- */
 //? GETTER & SETTER METHODS: Görevi veri getirme (getter) ve veri güncelleme (setter) olan metodlardır.
 //? "STATIC" KEYWORD: Class'dan direkt erişim. (Instance erişemez.)
 
 class Car {
 
     isRunning = false
+    #price
 
     constructor (brand, model, year) {
         this.brand = brand
@@ -253,13 +254,45 @@ class Car {
         console.log('Engine runned')
         return this.isRunning
     }
+
+    set setPrice(newPrice) {
+        console.log('Fiyat güncellendi');
+        this.#price = newPrice
+    }
+
+    get getPrice() {
+        console.log('Fiyat görüntülendi');
+        return this.#price
+    }
+
+    //? Direkt class ile erişmek istediklerimizi statik ile işaretleriz
+    //? Statik property veya methodlara instance ile erişilmez
+    static staticProp = 'static-value'
+
+    //? Static methodlarda this ifadesi sadece statikleri çağırır
+    static staticMethod() {
+        console.log('Static Method çalıştı.');
+        return this
+    }
 }
 
 const Ford = new Car('Ford', 'Mustang', 1967)
 console.log(Ford)
+// console.log(Ford.#price);
+//getter ve setter methodlar bir property gibi kullanılır
+console.log(Ford.getPrice);
+// Ford.setPrice(5000) // Setter method normal method gibi çağrılmaz
+Ford.setPrice = 5000
+console.log(Ford.getPrice);
 
+// Bir class içine direkt erişim olmaz...
+// console.log(Car.runEngine())
+// ... static olanlara erişebiliriz
+console.log(Car.staticProp);// Class'tan static erişilebilir
+console.log(Ford.staticProp); // Instance'dan static erişilemez
 
-
+console.log(Car.staticMethod());
+// console.log(Ford.staticMethod()) // erişimi yoktur
 
 /* ------------------------------------------------------- */
 //? ABSTRACTION: Soyutlama/Modelleme (Class ile obje üretebilme. Aynı amaç için kullanılan değişken ve methodların bir class içinde yazıyor olması)
