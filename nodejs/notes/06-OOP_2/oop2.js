@@ -177,11 +177,11 @@ class Car extends Vehicle { // Inheritance
 const Ford = new Car('Ford', 'Mustang', 1967)
 console.log(Ford.getDetails())
 
-/* ------------------------------------------------------- *
+/* ------------------------------------------------------- */
 //? PROPERTY TYPES:
 //? -JS PUBLIC: Genel erişime açık.
 //? -JS PRIVATE: Sadece tanımlı olduğu class içinde erişim var.
-//? -JS PROTECTED: Sadece Tanımlı olduğu class ve Inherit edilen child-class erişebilir.
+//? -JS PROTECTED: Sadece Tanımlı olduğu class ve Inherit edilen child-class erişebilir.(JS Desteklemez)
 
 class Vehicle {
 
@@ -195,6 +195,7 @@ class Vehicle {
 
     constructor (vehicleType) {
         this.vehicleType = vehicleType
+        console.log('privateProperty', this.#privateProperty)  // Allow access from self-class
     }
 
     getDetails() {
@@ -212,6 +213,8 @@ class Car extends Vehicle { // Inheritance
         this.brand = brand
         this.model = model
         this.year = year
+        // console.log('privateProperty', this.#privateProperty) // NO ACCESS
+        console.log('protectedProperty', this._protectedProperty)
     }
 
     runEngine() {
@@ -228,7 +231,7 @@ class Car extends Vehicle { // Inheritance
 }
 
 const Ford = new Car('Ford', 'Mustang', 1967)
-console.log(Ford.getDetails())
+console.log(Ford)
 
 
 /* ------------------------------------------------------- *
