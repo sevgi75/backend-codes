@@ -11,4 +11,12 @@ require('./modules/')
 
 //? single function call
 const testSingleFunction=require('./modules/module')
-testSingleFunction()
+// testSingleFunction()
+
+
+//?multi function
+const [test1,test2,test3]=require('./modules/module')
+// test1()
+// test2()
+// test3()
+test1(), test2(), test3()
