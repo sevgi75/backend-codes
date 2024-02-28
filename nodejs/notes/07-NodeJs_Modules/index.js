@@ -26,3 +26,11 @@ const {testFunctionA:test1,testFunctionB:test2,testFunctionC:test3,pi}=require('
 // testFunctionA()
 test1(), test2(), test3()
 console.log(pi);
+
+// require('http') // once proje klasörü sonra global ortama bakar
+// require('node:http')
+
+require('dotenv').config()  //.env file içeriğini process.env ye aktarır
+console.log(process.env.PORT);
+console.log(process.env.HOST);
+console.log(process.env.SAMPLE_TEXT);
