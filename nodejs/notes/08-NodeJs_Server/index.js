@@ -28,16 +28,63 @@ const app=http.createServer((req,res)=>{
     console.log("************");
     console.log(req.url);
     */
+   /*
    // end points home: /, list: /list, test: /test
-   if(req.url=='/'){
-       res.end('<h1> HOME Page </h1>')
-       // res.end('<h1> Welcome </h1>')//end'den sonra yazılamaz
-    }
-    else if(req.url=='/list'){
-        res.end('<h1> LIST Page </h1>')
-    }
-    else if(req.url=='/test'){
-        res.end('<h1> TEST Page </h1>')
-    }   
+//    if(req.url=='/'){
+//        res.end('<h1> HOME Page </h1>')
+//        // res.end('<h1> Welcome </h1>')//end'den sonra yazılamaz
+//     }
+//     else if(req.url=='/list'){
+//         res.end('<h1> LIST Page </h1>')
+//     }
+//     else if(req.url=='/test'){
+//         res.end('<h1> TEST Page </h1>')
+//     }
+*/
+/*
+if(req.url=='/'){
+    res.write('this ')
+    res.write('is ')
+    res.write('home ')
+    res.write('page ')
+    res.end()
+    
+ }
+ else if(req.url=='/list'){
+     res.end('<h1> LIST Page </h1>')
+ }
+ else if(req.url=='/test'){
+     res.end('<h1> TEST Page </h1>')
+ }
+ */
+  // add methods       
+ if(req.url=='/'){
+    
+    if(req.method=='GET'){
+        res.write('this ')
+        res.write('is ')
+        res.write('home ')
+        res.write('page ')
+        res.end()
+    }else if(req.method=='POST'){
+        res.statusCode=400
+        res.statusMessage="post yapamazsin" 
+        res.end(' can not use this method')
+    }else if(req.method=='DELETE'){
+        res.writeHead(405,"silme yapamazsin",{
+            "Content-Type" : "text/html",
+            "another-header":"another content"
+        })
+        res.end(' can not use this method')
+    }    
+    else
+        res.end(' can not use this method')
+ }
+ else if(req.url=='/list'){
+     res.end('<h1> LIST Page </h1>')
+ }
+ else if(req.url=='/test'){
+     res.end('<h1> TEST Page </h1>')
+ }   
 })
 app.listen(8000,()=>console.log(`server runned : http://${HOST}:${PORT}`))
