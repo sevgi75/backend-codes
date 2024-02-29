@@ -81,10 +81,15 @@ if(req.url=='/'){
         res.end(' can not use this method')
  }
  else if(req.url=='/list'){
-     res.end('<h1> LIST Page </h1>')
+    const obj={
+        "error": false,
+        "message":"this is list page",
+        "deneme":"deneme"
+    }
+    res.end(JSON.stringify(obj))
  }
  else if(req.url=='/test'){
-     res.end('<h1> TEST Page </h1>')
+    res.end('<h1> TEST Page </h1>')
  }   
 })
 app.listen(8000,()=>console.log(`server runned : http://${HOST}:${PORT}`))
