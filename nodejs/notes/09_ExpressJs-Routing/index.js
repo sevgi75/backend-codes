@@ -52,6 +52,58 @@ app.all('/',(req,res)=>{res.send({ "message":"ALL method called"})})
 // app.get(/abc$/,(req,res)=>{ res.send({ message:"start with any" })}) //başı ne olursa olsun sonu abc olacak
 // app.get(/^\/abc/,(req,res)=>{ res.send({ message:"and with any" })}) // başı abc olacak sonu ne olursa olsun
 // app.get(/\/*abc/,(req,res)=>{ res.send({ message:"start with any" })}) // başlangıç ne olursa olsun
-app.get(/abc/,(req,res)=>{ res.send({ message:"find abc in path" })}) // içinde abc olacak başına sonuna ne gelirse gelsin
+// app.get(/abc/,(req,res)=>{ res.send({ message:"find abc in path" })}) // içinde abc olacak başına sonuna ne gelirse gelsin
+
+//? url parametres
+// http://127.0.0.1:8000/524/location/izmir
+// app.get('/:blogId/location/:location',(req,res)=>{
+
+//     // res.send({
+//     //     params:req.params,
+//     //     blogId:req.params.blogId
+//     // })
+
+//     res.send({
+//         blogId:req.params.blogId,
+//         url:{
+//             protocol:req.protocol,
+//             domain:req.hostname,
+//             method:req.method,
+//             url:req.url,
+//             path:req.path,
+
+//             params:req.params,
+//             body:req.body,
+//             query:req.query,
+
+//             header:req.headers,
+
+//         }
+//     })
+// app.get('/:userId',(req,res)=>{
+// app.get('/:userId[0-9]',(req,res)=>{ 
+// app.get('/:userId[\\d]+',(req,res)=>{ 
+// app.get('/:userId[\\D]+',(req,res)=>{ 
+// app.get('/:userId[\\w]+',(req,res)=>{
+    // http://127.0.0.1:8000/57-deneme // thunder da bu şekilde send yapılır
+app.get('/:userId-:userName',(req,res)=>{
+
+    res.send({
+        userId:req.params.userId,
+        userName:req.params.userName,
+        url:{
+            protocol:req.protocol,
+            domain:req.hostname,
+            method:req.method,
+            url:req.url,
+            path:req.path,
+            params:req.params,
+            body:req.body,
+            query:req.query,
+            header:req.headers,
+
+        }
+    })
+})
 
 app.listen(PORT,HOST,()=>console.log(`Server runned http://${HOST}:${PORT}`))
