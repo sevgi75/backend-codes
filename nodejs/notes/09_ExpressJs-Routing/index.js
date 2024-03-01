@@ -133,7 +133,8 @@ app.get('/',(req,res)=>{
 
 //? download
 // app.get('/download',(req,res)=>{
-      //res.download('/readme.md','express routing')
+    // res.download('./test/abouttest.md','express routing')
+    //res.download('/readme.md','express routing')
 // })
 
 app.listen(PORT,HOST,()=>console.log(`Server runned http://${HOST}:${PORT}`))
