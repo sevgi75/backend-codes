@@ -17,7 +17,7 @@ const router = require('express').Router()
 //? router.route()
 // bu yöntemle tek bir url e birden fazla method gönderebiliyoruz
 router.route('/')
-    .get((req, res) => res.send({ message: "get" }))
+    .get((req, res) => res.send(' message: "get"' ))
     .post((req, res) => res.send({ message: "post" }))
     .put((req, res) => res.send({ message: "put" }))
     .delete((req, res) => res.send({ message: "delete" }))
