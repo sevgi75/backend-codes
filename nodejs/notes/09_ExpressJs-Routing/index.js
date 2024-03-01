@@ -29,6 +29,10 @@ app.get('/',(req,res)=>{
     // res.send('hello FS15') // birden fazla send manasız
 })
 
-app.post('/',(req,res)=>{ res.send({ "message":"POST method called" })})
+// app.post('/',(req,res)=>{ res.send({ "message":"POST method called" })})
+// app.put('/',(req,res)=>{ res.send({ "message":"PUT method called" })})
+// app.delete('/',(req,res)=>{ res.send({ "message":"DELETE method called" })})
+
+app.all('/',(req,res)=>{res.send({ "message":"ALL method called"})})
 
 app.listen(PORT,HOST,()=>console.log(`Server runned http://${HOST}:${PORT}`))
