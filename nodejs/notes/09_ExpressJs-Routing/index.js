@@ -125,4 +125,10 @@ app.get('/',(req,res)=>{
 //     res.redirect(302,'/about')
 // })
 
+//? show file content
+// app.get('/file',(req,res)=>{
+    // __dirname bulunduğum klasör
+    //res.sendFile(__dirname+'/readme.md')
+// })
+
 app.listen(PORT,HOST,()=>console.log(`Server runned http://${HOST}:${PORT}`))
