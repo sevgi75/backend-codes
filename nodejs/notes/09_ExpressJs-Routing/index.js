@@ -86,6 +86,7 @@ app.all('/',(req,res)=>{res.send({ "message":"ALL method called"})})
 // app.get('/:userId[\\D]+',(req,res)=>{ 
 // app.get('/:userId[\\w]+',(req,res)=>{
     // http://127.0.0.1:8000/57-deneme // thunder da bu şekilde send yapılır
+/*    
 app.get('/:userId-:userName',(req,res)=>{
 
     res.send({
@@ -98,12 +99,22 @@ app.get('/:userId-:userName',(req,res)=>{
             url:req.url,
             path:req.path,
             params:req.params,
-            body:req.body,
+            // body:req.body,
             query:req.query,
             header:req.headers,
 
         }
     })
 })
+*/
+app.get('/',(req,res)=>{
+
+    res.status(200).send({
+        message:"tebrikler üye oldunuz"
+    })
+})
+app.post('/',(req,res)=>{ res.status(201).send({ "message":"POST method called" })})
+app.put('/',(req,res)=>{ res.status(202).send({ "message":"PUT method called" })})
+app.delete('/',(req,res)=>{ res.status(202).send({ "message":"DELETE method called" })})
 
 app.listen(PORT,HOST,()=>console.log(`Server runned http://${HOST}:${PORT}`))
