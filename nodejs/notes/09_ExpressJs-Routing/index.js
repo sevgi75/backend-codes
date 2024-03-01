@@ -113,8 +113,16 @@ app.get('/',(req,res)=>{
         message:"tebrikler üye oldunuz"
     })
 })
-app.post('/',(req,res)=>{ res.status(201).send({ "message":"POST method called" })})
-app.put('/',(req,res)=>{ res.status(202).send({ "message":"PUT method called" })})
-app.delete('/',(req,res)=>{ res.status(202).send({ "message":"DELETE method called" })})
+// app.post('/',(req,res)=>{ res.status(201).send({ "message":"POST method called" })})
+// app.put('/',(req,res)=>{ res.status(202).send({ "message":"PUT method called" })})
+// app.delete('/',(req,res)=>{ res.status(202).send({ "message":"DELETE method called" })})
+
+//? redirect (sadece 300 lü kodlar)
+
+// app.get('/',(req,res)=>{
+
+//     res.redirect(301,'https://www.google.com')//? Cash e giriyor historyden son 1 saati silmek gerekebilir
+//     res.redirect(302,'/about')
+// })
 
 app.listen(PORT,HOST,()=>console.log(`Server runned http://${HOST}:${PORT}`))
