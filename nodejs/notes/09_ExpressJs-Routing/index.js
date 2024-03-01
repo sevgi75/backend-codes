@@ -131,4 +131,9 @@ app.get('/',(req,res)=>{
     //res.sendFile(__dirname+'/readme.md')
 // })
 
+//? download
+// app.get('/download',(req,res)=>{
+      //res.download('/readme.md','express routing')
+// })
+
 app.listen(PORT,HOST,()=>console.log(`Server runned http://${HOST}:${PORT}`))
