@@ -109,7 +109,8 @@ app.get('/', (req, res) => {
 const middleFunc1 = (req, res, next) => {
 
     req.message1 = 'middleFunc1 started.'
-    next()
+    // next()
+    next('route')
 }
 
 const middleFunc2 = (req, res, next) => {
@@ -127,13 +128,29 @@ const middleFunc2 = (req, res, next) => {
 // app.use([middleFunc1, middleFunc2]) // all paths
 //? It can use URL:
 // app.get('/abc', [middleFunc1, middleFunc2]) // only /abc only get
-app.use('/abc', [middleFunc1, middleFunc2]) // only /abc/* and all methods
+// app.use('/abc', [middleFunc1, middleFunc2]) // only /abc/* and all methods
 
-app.all('/*', (req, res) => {
+// app.all('/*', (req, res) => {
+//     res.send({
+//         message1: req.message1,
+//         message2: req.message2,
+//         message: "Finished",
+//     })
+// })
+
+//? use kullanmadanda middleware func eklenebilir(Biz use halini kullanacağız)
+app.get('/*', middleFunc1, middleFunc2, (req, res) => {
     res.send({
         message1: req.message1,
         message2: req.message2,
         message: "Finished",
+    })
+})
+
+// started by next('route')
+app.get('/', (req, res) => {
+    res.send({
+        message: 'next route'
     })
 })
 
