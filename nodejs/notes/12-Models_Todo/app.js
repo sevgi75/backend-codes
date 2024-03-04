@@ -13,13 +13,86 @@ const PORT = process.env.PORT || 8000;
 // Accept json data:
 app.use(express.json())
 
-app.all('/', (req, res) => {
-    res.send('WELCOME TO TODO API')
-})
+require('express-async-errors')
+
+// app.all('/', (req, res) => {
+//     res.send('WELCOME TO TODO API')
+// })
 
 /* ------------------------------------------------------- */
+// MODEL
 
-// continue from here...
+const { Sequelize, DataTypes } = require('sequelize')
+// sequelize instant oluştur
+const sequelize = new Sequelize('sqlite:./db.sqlite3')
+
+// define methodu sequelize modeli oluştur:
+// her bir model veritabanında bir tabloya denk gelir
+// sequelize.define('tableName',{modelDetails})
+
+const Todo = sequelize.define('todos', {
+
+    // ilk sutun olarak id sutunu sequelize tarafından otomatik olarak oluşturulur/yönetilir.
+    // id: {
+    //     type: DataTypes.INTEGER,
+    //     allowNull: false, // default: true
+    //     unique: true,  // default: false
+    //     comment: 'description',
+    //     primaryKey: true,
+    //     autoIncrement: true,
+    //     field: 'custom_name',
+    //     defaultValue: 'default', // default: null
+    // }
+    title: {
+        type:DataTypes.STRING,
+        allowNull: false
+    },
+    description: DataTypes.TEXT, // ShortHand
+
+    priority: {
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        default: 0
+    },
+
+    isDone: {
+        type:DataTypes.BOOLEAN,
+        allowNull: false,
+        default: false
+    }
+
+})
+ // Syncronization
+ // Model bilgilerini db  ye uygula
+ //  sequelize.sync()  // CREATE TABLE
+ // sequelize.sync({ force: true }) // DROP TABLE & CREATE TABLE
+ // sequelize.sync({ alter: true }) // TO BACKUP & DROP TABLE & CREATE TABLE & FROM BACKUP
+
+ // Connect to db:
+ sequelize.authenticate()
+    .then(() => console.log('* DB Connected *'))
+    .catch(() => console.log('* DB Not Connected *'))
+
+/* ------------------------------------------------------- */
+// ROUTERS:
+
+const router = express.Router()
+
+router.post('/', async(req, res) => {
+    const receivedData = req.body
+
+    const data = await Todo.create({
+        title: receivedData.title,
+        description: receivedData.description,
+        priority: receivedData.priority,
+        isDone: receivedData.isDone
+    })
+
+    console.log(data);
+})
+
+
+app.use(router)
 
 /* ------------------------------------------------------- */
 
