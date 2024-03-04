@@ -14,14 +14,14 @@ app.get('/',(req,res)=>{
     throw new Error('Error Message')
 })
 
-app.get('/user/:id', (req, res) => {
+app.get('/user/:id', (req, res, next) => {
 
     const id = req.params?.id || 0
 
     try {
         if(isNaN(id)) {
 
-            throw new Error('ID is not a number', { cause: 'params.id =' + id })
+            throw new Error('ID is not a number')
     
         }else{
     
@@ -32,35 +32,46 @@ app.get('/user/:id', (req, res) => {
         }
     }catch(err){
 
-        res.send({
-            error: true,
-            message: err.message
-        })
+        // next içinde bir hata objesi gönderirsek, errorHandler yakalar.
+        next(err)
+
+        // res.send({
+        //     error: true,
+        //     message: err.message
+        // })
 
     }
 
     
 })
 /* ------------------------------------------------------- */
-//* ERROR HANDLER
 
-app.get('/*', (req, res) => {
+app.get('/*', (req, res, next) => {
 
     res.errorStatusCode = 404
 
-    throw new Error('Error Message')
+    throw new Error('There is an Error Message', { cause: 'No reason :'})
 })
+
+/* ------------------------------------------------------- */
+/* ------------------------------------------------------- */
+/* ------------------------------------------------------- */
+/* ------------------------------------------------------- */
+//* ERROR HANDLER
 
 //? errorHandler is middleware and has must be four parametters. (error, request, response, next)
 const errorHandler = (err, req, res, next) => {
 
+    // console.log(err)
     console.log('errorHandler started.');
 
     const errorStatusCode = res?.errorStatusCode || 500
 
     res.status(errorStatusCode).send({
         error: true,
-        message: err.message
+        message: err.message,
+        cause: err.cause,
+        stack: err.stack,
     })
 
 }
@@ -68,9 +79,5 @@ const errorHandler = (err, req, res, next) => {
 //? It must be at last middleware.
 app.use(errorHandler)
 
-/* ------------------------------------------------------- */
-/* ------------------------------------------------------- */
-/* ------------------------------------------------------- */
-/* ------------------------------------------------------- */
 /* ------------------------------------------------------- */
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
