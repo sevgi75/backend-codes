@@ -44,7 +44,7 @@ app.get('/user/:id', (req, res, next) => {
 
     
 })
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 
 app.get('/*', (req, res, next) => {
 
@@ -53,8 +53,20 @@ app.get('/*', (req, res, next) => {
     throw new Error('There is an Error Message', { cause: 'No reason :'})
 })
 
+/* ------------------------------------------------------- *
+
+const asyncFunction = async () => {
+    throw new Error('Error in async-function')
+}
+//? Control with cath(next)
+app.get('/async', async(req, res, next) => {
+    // await asyncFunction() // Bu şekilde sistem kilitlenir
+    await asyncFunction().then().catch((err) => {next(err)}) // catch error by errorHandler.
+    await asyncFunction().then().catch(next) // catch error by errorHandler.
+})
+
 /* ------------------------------------------------------- */
-/* ------------------------------------------------------- */
+// $ npm i express-async-errors
 /* ------------------------------------------------------- */
 /* ------------------------------------------------------- */
 //* ERROR HANDLER
