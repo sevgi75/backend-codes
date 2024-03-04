@@ -14,6 +14,11 @@ const router = require('express').Router()
 // router.get('/about', (req, res) => res.send({ message: "About Area" }))
 // router.get('/user/:id', (req, res) => res.send({ message: "User Area" }))
 
+const { middleFunc1, middleFunc2 } = require('../middlewares/')
+
+router.use(middleFunc1, middleFunc2)
+
+
 //? router.route()
 // bu yöntemle tek bir url e birden fazla method gönderebiliyoruz
 router.route('/')
