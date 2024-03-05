@@ -12,11 +12,12 @@ const PORT=process.env.PORT || 8000;
 //* DATA RECEIVING:
 //? Accept JSON and convert to object:
 app.use(express.json())
+
 //? Accept TEXT:
-// app.use(express.text())
+app.use(express.text())
 //? Accept Form-Data:
 // extended must be define. (if true, it supported nested form-data.)
-// app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }))
 
 //* Allow staticfiles:
 // Call staticFiles from real-path
