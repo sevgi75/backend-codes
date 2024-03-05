@@ -82,6 +82,18 @@ const Todo = sequelize.define('todos', {
 
 const router = express.Router()
 
+// LIST TODOS:
+router.get('/', async(req, res) => {
+
+    // const data = await Todo.findAll()
+    const data = await Todo.findAndCountAll()
+
+    res.status(200).send({
+        error: false,
+        result: data
+    })
+})
+
 // CREATE TODO:
 router.post('/', async(req, res) => {
     // const receivedData = req.body
@@ -102,6 +114,19 @@ router.post('/', async(req, res) => {
     res.status(201).send({
         error: false,
         result: data.dataValues
+    })
+})
+
+// READ TODO:
+// Tek bir Todo okumak için
+router.get('/:id', async(req, res) => {
+
+    // const data = await Todo.findOne({ where: { id: req.params.id}})
+    const data = await Todo.findByPk(req.params.id)
+
+    res.status(200).send({
+        error: false,
+        result: data
     })
 })
 
