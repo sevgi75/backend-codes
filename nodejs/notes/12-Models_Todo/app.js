@@ -21,7 +21,7 @@ require('express-async-errors')
 // })
 
 /* ------------------------------------------------------- */
-// MODEL
+// MODELS:
 
 const { Sequelize, DataTypes } = require('sequelize')
 // sequelize instant oluştur
@@ -50,7 +50,7 @@ const Todo = sequelize.define('todos', {
     },
     description: DataTypes.TEXT, // ShortHand
 
-    priority: {
+    priority: { // -1: Low, 0: Norm, 1: High
         type: DataTypes.TINYINT,
         allowNull: false,
         default: 0
@@ -62,6 +62,9 @@ const Todo = sequelize.define('todos', {
         default: false
     }
 
+    //? Not need define createdAt & updatedAt fields.
+    //? createdAt ve uptadetAt tanımlamaya gerek yoktur.
+    //? Sequelize otomatik oluşturur/yönetir.
 })
  // Syncronization
  // Model bilgilerini db  ye uygula
@@ -79,17 +82,27 @@ const Todo = sequelize.define('todos', {
 
 const router = express.Router()
 
+// CREATE TODO:
 router.post('/', async(req, res) => {
-    const receivedData = req.body
+    // const receivedData = req.body
 
-    const data = await Todo.create({
-        title: receivedData.title,
-        description: receivedData.description,
-        priority: receivedData.priority,
-        isDone: receivedData.isDone
+    // const data = await Todo.create({
+    //     title: receivedData.title,
+    //     description: receivedData.description,
+    //     priority: receivedData.priority,
+    //     isDone: receivedData.isDone,
+    //     // newKey: 'newValue' // Modelde tanımlanmadığı için bir işe yaramayacaktır.
+    // })
+
+    //? üstteki komutun kısa yolu
+    const data = await Todo.create(req.body)
+
+    // console.log(data);
+
+    res.status(201).send({
+        error: false,
+        result: data.dataValues
     })
-
-    console.log(data);
 })
 
 
