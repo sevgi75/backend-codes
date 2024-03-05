@@ -67,6 +67,13 @@ app.get('/async', async(req, res, next) => {
 
 /* ------------------------------------------------------- */
 // $ npm i express-async-errors
+
+require('express-async-errors')
+
+app.get('/async', async(req, res, next) => {
+    throw new Error('Error in async-function')
+})
+
 /* ------------------------------------------------------- */
 /* ------------------------------------------------------- */
 //* ERROR HANDLER
