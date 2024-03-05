@@ -75,7 +75,7 @@ app.get('/async', async(req, res, next) => {
 })
 
 /* ------------------------------------------------------- */
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 //* ERROR HANDLER
 
 //? errorHandler is middleware and has must be four parametters. (error, request, response, next)
@@ -97,6 +97,12 @@ const errorHandler = (err, req, res, next) => {
 //? for run errorHandler call in use.
 //? It must be at last middleware.
 app.use(errorHandler)
+
+/* ------------------------------------------------------- */
+
+//? errorHandler:
+//? It must be at last middleware
+app.use(require('./errorHandler'))
 
 /* ------------------------------------------------------- */
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
