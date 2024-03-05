@@ -13,9 +13,10 @@ const PORT = process.env.PORT || 8000;
 // Accept json data:
 app.use(express.json())
 
+// Catch async-errors:
 require('express-async-errors')
 
-// app.all('/', (req, res) => {
+// app.all('/', (req, res) => { //Allow all methods. all -> URL=/ - use -> URL=/*
 //     res.send('WELCOME TO TODO API')
 // })
 
