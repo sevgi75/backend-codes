@@ -146,7 +146,34 @@ router.put('/:id', async (req, res) => {
 })
 
 // DELETE TODO:
+router.delete('/:id', async (req, res) => {
 
+    // const data = await Todo.destroy({ ...where })
+    const data = await Todo.destroy({ where: { id: req.params.id } })
+
+    // console.log(data);
+
+    //? 204 No Content -> Ekrana çıktı vermeyebilir
+    // res.status(204).send({
+    //     error: false,
+    //     message: 'Deleted',
+    //     result: data
+    // })
+
+    if (data > 0) { // Silme gerçekleşti ise:
+        // res.status(204).send()
+        //? Sadece status çıktı ver:
+        res.sendStatus(204)
+    } else { // Silme gerçekleşmedi ise:
+        // res.status(404).send({
+        //     error: true,
+        //     result: data
+        // })
+        //? ErrorHandler'a havale edebilirim:
+        res.errorStatusCode = 404
+        throw new Error('Not Found.')
+    }
+})
 
 app.use(router)
 
