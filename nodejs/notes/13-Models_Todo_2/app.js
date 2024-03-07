@@ -48,7 +48,7 @@ const Todo = sequelize.define('todos', {
         type:DataTypes.STRING,
         allowNull: false
     },
-    description: DataTypes.TEXT, // ShortHand
+    description: DataTypes.TEXT, // ShortHand Using.
 
     priority: { // -1: Low, 0: Norm, 1: High
         type: DataTypes.TINYINT,
