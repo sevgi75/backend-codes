@@ -78,11 +78,7 @@ const Todo = sequelize.define('todos', {
     .catch(() => console.log('* DB Not Connected *'))
 
 /* ------------------------------------------------------- */
-// Model Import:
-
-const Todo = require('./todo.model')
-
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 // ROUTERS:
 
 const router = express.Router()
@@ -181,6 +177,11 @@ router.delete('/:id', async (req, res) => {
 })
 
 app.use(router)
+
+/* ------------------------------------------------------- */
+//? router import(call)
+
+app.use(require('./todo.router'))
 
 /* ------------------------------------------------------- */
 
