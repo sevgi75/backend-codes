@@ -20,7 +20,7 @@ require('express-async-errors')
 //     res.send('WELCOME TO TODO API')
 // })
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 // MODELS:
 
 const { Sequelize, DataTypes } = require('sequelize')
@@ -76,6 +76,11 @@ const Todo = sequelize.define('todos', {
  sequelize.authenticate()
     .then(() => console.log('* DB Connected *'))
     .catch(() => console.log('* DB Not Connected *'))
+
+/* ------------------------------------------------------- */
+// Model Import:
+
+const Todo = require('./todo.model')
 
 /* ------------------------------------------------------- */
 // ROUTERS:
