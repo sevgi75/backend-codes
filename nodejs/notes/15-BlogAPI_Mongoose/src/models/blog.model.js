@@ -6,6 +6,38 @@
 const mongoose=require("mongoose")
 
 
+const blogPostSchema= new mongoose.Schema(
+    {
+        // _id
+        // categoryId
+        title:{
+            type:String,
+            trim: true,
+            required: true
+        },
+        content:{
+            type:String,
+            trim: true,
+            required: true
+        }
+        // createdAT,
+        // updatedAt
+    },
+    {
+        collection:"blogPost",
+        timestamps:true
+    }
+)
+// mongoose.model('model ismi','hangi şemadan')
+
+// const BlogPostModel=mongoose.model('BlogPost',blogPostSchema)
+// module.exports={
+//     BlogPost:BlogPostModel
+// }
+
+module.exports={
+    BlogPost:mongoose.model('BlogPost',blogPostSchema)
+}
 
 
 
