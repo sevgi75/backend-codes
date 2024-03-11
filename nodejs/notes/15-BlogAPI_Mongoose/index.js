@@ -22,6 +22,8 @@ app.all('/',(req,res)=>{
     res.send('WELCOME BLOG API PROJECT')
 })
 
+app.use('/blog',require("./src/routes/blog.route"))
+
 app.use(require('./src/errorHandler'))  // aşağıda kalsın
 
 app.listen(PORT,()=> console.log(` Server Running on http://${HOST}:${PORT}`))
