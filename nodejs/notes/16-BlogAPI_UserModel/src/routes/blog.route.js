@@ -1,12 +1,12 @@
 "use strict"
 /* ====================================================== */
-/*                     BLOG API ROUTES                    */
+/*                     BLOG API Routes               */
 /* ====================================================== */
 const router=require("express").Router()
 
 
-
 const {BlogPost}=require("../controllers/blog.controller")
+
 
 router.route('/posts')
     .get(BlogPost.list)
