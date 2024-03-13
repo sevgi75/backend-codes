@@ -25,7 +25,8 @@ const blogPostSchema = new mongoose.Schema(
   {
     blogCategoryId: {
         type: mongoose.Schema.Types.ObjectId, // ForignKey, RelationalID
-        ref: 'BlogCategory'
+        ref: 'BlogCategory',
+        required: true,
 
     },
 
@@ -40,6 +41,11 @@ const blogPostSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
+
+    published: {
+        type: Boolean,
+        default: true
+    }
     //  createdAt, //  updatedAt
   },
   {
