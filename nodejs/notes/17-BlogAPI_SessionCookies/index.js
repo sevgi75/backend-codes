@@ -19,6 +19,14 @@ const HOST = process.env.HOST
 /* DB connection  */
 require('./src/configs/dbConnection') // dotenv çalıştıktan sonra 
 
+/* ------------------------------------------------------- */
+// SessionCookies:
+// http://expressjs.com/en/resources/middleware/cookie-session.html
+// https://www.npmjs.com/package/cookie-session
+//* $ npm i cookie-session
+
+/* ------------------------------------------------------- */
+
 app.all('/', (req, res) => {
     res.send('WELCOME BLOG API PROJECT')
 })
