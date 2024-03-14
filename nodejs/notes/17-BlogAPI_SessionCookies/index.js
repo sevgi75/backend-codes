@@ -35,7 +35,12 @@ app.use(session({
 /* ------------------------------------------------------- */
 
 app.all('/', (req, res) => {
-    res.send('WELCOME BLOG API PROJECT')
+    // res.send('WELCOME BLOG API PROJECT')
+    res.send({
+        error: false,
+        message: 'WELCOME BLOG API PROJECT',
+        loginedUser: req.session
+    })
 })
 
 app.use('/user', require("./src/routes/user.router"))
