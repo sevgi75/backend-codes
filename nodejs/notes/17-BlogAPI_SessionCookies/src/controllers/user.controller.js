@@ -66,7 +66,8 @@ module.exports = {
                 //     email: user.email,
                 //     password: user.password
                 // }
-                req.session.email = user.email
+                // req.session.email = user.email
+                req.session.id = user.id
                 req.session.password = user.password
                 /* SESSION */ 
 
