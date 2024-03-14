@@ -25,6 +25,13 @@ require('./src/configs/dbConnection') // dotenv çalıştıktan sonra
 // https://www.npmjs.com/package/cookie-session
 //* $ npm i cookie-session
 
+const session = require('cookie-session')
+
+app.use(session({
+    secret:process.env.SECRET_KEY,  // şifreleme anahtarı
+    // maxAge:1000*60*60*24*3  // miliseconds // 3 days
+}))
+
 /* ------------------------------------------------------- */
 
 app.all('/', (req, res) => {
