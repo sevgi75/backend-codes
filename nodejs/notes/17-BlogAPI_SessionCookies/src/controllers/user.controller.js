@@ -97,5 +97,13 @@ module.exports = {
     },
     logout: async(req, res) => {
 
+        // Session destroy:
+        req.session = null
+
+        res.status(200).send({
+            error: false,
+            message: 'Logout OK',           
+        })
+
     }
 }
