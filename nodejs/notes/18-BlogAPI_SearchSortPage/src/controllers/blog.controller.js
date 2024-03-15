@@ -67,14 +67,25 @@ module.exports.BlogPost={
         // FILTERING:
         // URL?filter[key1]=value1&filter[key2]=value2
         const filter = req.query?.filter || {}
-        console.log(filter);
-        
+        // console.log(filter);
+
+        // SEARCHING:
+        // URL?search[key1]=value1&search[key2]=value2
+        // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
+        const search = req.query?.search || {}
+        console.log(search);
+        // { title: 'test', content: 'test' } -> { title: { $regex: 'test' }, content: { $regex: 'test' } }
+        for (let key in search) {
+            search[key] = { $regex: search[key] }
+        }
+        console.log(search);
 
 
         /* FILTERING & SEARCHING & SORTING & PAGINATION */
 
         // const data=await BlogPost.find({published: true})
-        const data=await BlogPost.find(filter)
+        // const data=await BlogPost.find(filter)
+        const data=await BlogPost.find({...filter, ...search})
 
 
         res.status(200).send({
