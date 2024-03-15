@@ -61,7 +61,22 @@ module.exports.BlogCategory={
 module.exports.BlogPost={
 
     list: async(req,res)=>{
-        const data=await BlogPost.find()
+
+        /* FILTERING & SEARCHING & SORTING & PAGINATION */
+
+        // FILTERING:
+        // URL?filter[key1]=value1&filter[key2]=value2
+        const filter = req.query?.filter || {}
+        console.log(filter);
+        
+
+
+        /* FILTERING & SEARCHING & SORTING & PAGINATION */
+
+        // const data=await BlogPost.find({published: true})
+        const data=await BlogPost.find(filter)
+
+
         res.status(200).send({
             error:false,
             data:data
