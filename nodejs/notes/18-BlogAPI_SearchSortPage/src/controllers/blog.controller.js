@@ -73,19 +73,30 @@ module.exports.BlogPost={
         // URL?search[key1]=value1&search[key2]=value2
         // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
         const search = req.query?.search || {}
-        console.log(search);
+        // console.log(search);
         // { title: 'test', content: 'test' } -> { title: { $regex: 'test' }, content: { $regex: 'test' } }
         for (let key in search) {
-            search[key] = { $regex: search[key] }
+            // search['title'] = {$regex: search['title']}
+            // search['content'] = {$regex: search['content']}
+            search[key] = { $regex: search[key], $options: 'i' } // i: insensitive
         }
-        console.log(search);
+        // console.log(search);
+
+        // SORTING:
+        // URL?sort[key1]=asc&sort[key2]=desc
+        // 1: A-Z   -   -1: Z-A  // depraceted
+        // asc: A-Z - desc: Z-A
+        const sort = req.query?.sort || {}
+        // console.log(sort);
+
+        // PAGINATION:
 
 
         /* FILTERING & SEARCHING & SORTING & PAGINATION */
 
         // const data=await BlogPost.find({published: true})
         // const data=await BlogPost.find(filter)
-        const data=await BlogPost.find({...filter, ...search})
+        const data=await BlogPost.find({...filter, ...search}).sort(sort)
 
 
         res.status(200).send({
