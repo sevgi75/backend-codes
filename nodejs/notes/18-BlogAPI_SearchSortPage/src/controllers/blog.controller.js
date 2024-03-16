@@ -17,9 +17,11 @@ const { BlogCategory, BlogPost } = require("../models/blog.model");
 
 module.exports.BlogCategory = {
   list: async (req, res) => {
-    const data = await BlogCategory.find();
+    // const data = await BlogCategory.find();
+    const data = await res.getModelList(BlogCategory)
     res.status(200).send({
       error: false,
+      details: await res.getModelListDetails(BlogCategory),
       data: data,
     });
   },
@@ -32,7 +34,7 @@ module.exports.BlogCategory = {
     });
   },
   read: async (req, res) => {
-    const data = await BlogCategory.find({ _id: req.params.categoryId });
+    const data = await BlogCategory.findOne({ _id: req.params.categoryId });
     res.status(202).send({
       error: false,
       data: data,
@@ -43,7 +45,7 @@ module.exports.BlogCategory = {
       { _id: req.params.categoryId },
       req.body
     );
-    const newdata = await BlogCategory.find({ _id: req.params.categoryId });
+    const newdata = await BlogCategory.findOne({ _id: req.params.categoryId });
     res.status(202).send({
       error: false,
       body: req.body,
@@ -61,7 +63,7 @@ module.exports.BlogCategory = {
 
 module.exports.BlogPost = {
   list: async (req, res) => {
-    /* FILTERING & SEARCHING & SORTING & PAGINATION */
+    /* FILTERING & SEARCHING & SORTING & PAGINATION *
 
     // FILTERING:
     // URL?filter[key1]=value1&filter[key2]=value2
@@ -94,19 +96,33 @@ module.exports.BlogPost = {
     // Limit:
     let limit = Number(req.query?.limit);
     limit = limit > 0 ? limit : Number(process.env.PAGE_SIZE || 20)
-    // console.log(typeof limit, limit);
+    console.log('limit', limit);
 
     // Page:
-    
+    let page = Number(req.query?.page)
+    // page = page > 0 ? page : 1
+    page = page > 0 ? (page - 1) : 0 // Backend de sayfa sayısı her zaman page-1 olarak hesaplanmalı.
+    console.log('page', page);
+
+    // Skip:
+    // LIMIT 20,  10
+    let skip = Number(req.query?.skip)
+    skip = skip > 0 ? skip : (page * limit)
+    console.log('skip', skip);
+
 
     /* FILTERING & SEARCHING & SORTING & PAGINATION */
 
     // const data=await BlogPost.find({published: true})
     // const data=await BlogPost.find(filter)
-    const data = await BlogPost.find({ ...filter, ...search }).sort(sort).limit(limit)
+    // const data = await BlogPost.find({ ...filter, ...search }).sort(sort).skip(skip).limit(limit)
+    
+    // const data=await BlogPost.find().populate('blogCategoryId')
+    const data = await res.getModelList(BlogPost, 'blogCategoryId')
 
     res.status(200).send({
       error: false,
+      details: await res.getModelListDetails(BlogPost),
       data: data,
     });
   },
@@ -119,7 +135,7 @@ module.exports.BlogPost = {
     });
   },
   read: async (req, res) => {
-    const data = await BlogPost.find({ _id: req.params.postId });
+    const data = await BlogPost.findOne({ _id: req.params.postId }).populate('blogCategoryId');
     res.status(202).send({
       error: false,
       data: data,
@@ -127,7 +143,7 @@ module.exports.BlogPost = {
   },
   update: async (req, res) => {
     const data = await BlogPost.updateOne({ _id: req.params.postId }, req.body);
-    const newdata = await BlogPost.find({ _id: req.params.postId });
+    const newdata = await BlogPost.findOne({ _id: req.params.postId });
     res.status(202).send({
       error: false,
       body: req.body,

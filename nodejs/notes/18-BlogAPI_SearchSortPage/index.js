@@ -33,9 +33,13 @@ app.use(session({
 }))
 
 /* ------------------------------------------------------- */
+// Middlewares:
 
 // Check logined User:
 app.use(require('./src/middlewares/userControl'))
+
+// Filter, Search, Sort, Pagination:
+app.use(require('./src/middlewares/findSearchSortPage'))
 
 /* ------------------------------------------------------- */
 
