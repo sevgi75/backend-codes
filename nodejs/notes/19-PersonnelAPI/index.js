@@ -35,7 +35,7 @@ dbConnection()
 app.use(express.json())
 
 // SessionsCookies:
-app.use(require("cookie-session")({ secret: process.env.SECRET_KEY }))
+app.use(require('cookie-session')({ secret: process.env.SECRET_KEY }))
 
 // res.getModelList():
 app.use(require('./src/middlewares/findSearchSortPage'))
@@ -50,9 +50,10 @@ app.all('/', (req, res) => {
 })
 
 //  /departments
-app.use('/', require('./src/routes/department.router'))
+app.use('/departments', require('./src/routes/department.router'))
+// /personnels
+app.use('/personnels', require('./src/routes/personnel.router'))
 
-/* ------------------------------------------------------- */
 
 /* ------------------------------------------------------- */
 
