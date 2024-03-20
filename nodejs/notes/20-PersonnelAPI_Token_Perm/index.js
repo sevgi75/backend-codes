@@ -74,12 +74,13 @@ app.all('/', (req, res) => {
     })
 })
 
-//  /departments
-app.use('/departments', require('./src/routes/department.router'))
-// /personnels
-app.use('/personnels', require('./src/routes/personnel.router'))
+// //  /departments
+// app.use('/departments', require('./src/routes/department.router'))
+// // /personnels
+// app.use('/personnels', require('./src/routes/personnel.router'))
 
-
+// app.use(require('./src/routes/index'))
+app.use(require('./src/routes/'))
 /* ------------------------------------------------------- */
 
 // errorHandler:
