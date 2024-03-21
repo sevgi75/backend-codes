@@ -8,14 +8,14 @@ isLead: Kullanıcının sistemin tümünü değil de kendi departmanını yönet
 (Bir departmanımız olacak bu departman içinde personeller olacak ve bu personellerden 1 tanesi isLead olacak.)
 -- Aslında personel modeli, user modeli gibi düşünülebilir--
 ```
-- Autentication (Kimlik Kontrolü):
+- Authentication (Kimlik Kontrolü):
 
 Sadece kimlik kontrolü yapar, engelleme yapmaz.Gelen kullanıcının kim olduğunun kontrolünü yaparız.
 isLogin Autentication dur.
 
 - Authorization (Yetki Kontrolü):
 
-Kimlik kontrolü yapmaz.Çünkü, autentication tarafından yapılmıştır.
+Kimlik kontrolü yapmaz.Çünkü, authentication tarafından yapılmıştır.
 Authorization ı permissions başlığı altında kontrol edeceğiz.
 isLead ve isAdmin Authorization dır.
 #### Token Authentication:
