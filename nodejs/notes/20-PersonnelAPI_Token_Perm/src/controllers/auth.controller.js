@@ -5,6 +5,7 @@
 
 const Personnel = require("../models/personnel.model");
 const Token = require('../models/token.model')
+const passwordEncrypt = require('../helpers/passwordEncrypt')
 
 module.exports = {
  
@@ -31,12 +32,21 @@ module.exports = {
 
         /* TOKEN */
 
+        // Token var mı?
+        let tokenData = await Token.findOne({userId: user._id})
 
+        // Eğer token yoksa oluştur:
+        if (!tokenData) {
+          const tokenKey = passwordEncrypt(user._id + Date.now())
+          // console.log(typeof tokenKey, tokenKey);
+          tokenData = await Token.create({userId: user._id, token: tokenKey})
+        }
 
         /* TOKEN */
 
         res.status(200).send({
           error: false,
+          token: tokenData.token,
           user,
         });
       } else {
