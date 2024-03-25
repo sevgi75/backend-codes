@@ -50,6 +50,13 @@ module.exports = {
   },
 
   update: async (req, res) => {
+
+    if (!req.user.isAdmin) {
+      req.body.isAdmin = false; // personnel kendini admin yapamaz.
+      delete req.body.isLead
+      delete req.body.salary; // buradaki delete sonradan girilen salary i iptal ediyor.
+    }
+
     // isLead Control:
     const isLead = req.body?.isLead || false;
 
@@ -62,7 +69,7 @@ module.exports = {
         { departmentId, isLead: true },
         { isLead: false }
       );
-    }
+    }    
 
     const data = await Personnel.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
@@ -88,6 +95,4 @@ module.exports = {
       data,
     });
   },
-
-  
 };
