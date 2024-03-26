@@ -59,6 +59,12 @@ app.use(morgan('combined', {
     stream: fs.createWriteStream(`./logs/${today}.log`, { flags: 'a+'})
 }))
 
+/* ------------------------------------------------------- */
+//* DOCUMENTATION:
+// $ npm i swagger-autogen
+// $ npm i swagger-ui-express
+// $ npm i redoc-express
+
 
 /* ------------------------------------------------------- */
 // Middlewares:
