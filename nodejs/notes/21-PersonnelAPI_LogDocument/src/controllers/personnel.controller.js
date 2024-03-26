@@ -7,6 +7,9 @@ const Personnel = require("../models/personnel.model");
 
 module.exports = {
   list: async (req, res) => {
+    /*
+            #swagger.tags = ["Personnels"]
+    */
     // const data = await Personnel.find(search)
     //   .sort(sort)
     //   .skip(skip)
@@ -20,6 +23,10 @@ module.exports = {
   },
 
   create: async (req, res) => {
+    /*
+            #swagger.tags = ["Personnels"]
+    */
+
     // isLead Control:
     const isLead = req.body?.isLead || false;
     if (isLead) {
@@ -41,6 +48,9 @@ module.exports = {
   },
 
   read: async (req, res) => {
+    /*
+            #swagger.tags = ["Personnels"]
+    */
     const data = await Personnel.findOne({ _id: req.params.id });
 
     res.status(200).send({
@@ -50,6 +60,9 @@ module.exports = {
   },
 
   update: async (req, res) => {
+    /*
+            #swagger.tags = ["Personnels"]
+    */
 
     if (!req.user.isAdmin) {
       req.body.isAdmin = false; // personnel kendini admin yapamaz.
@@ -82,6 +95,9 @@ module.exports = {
   },
 
   delete: async (req, res) => {
+    /*
+            #swagger.tags = ["Personnels"]
+    */
     const data = await Personnel.deleteOne({ _id: req.params.id });
 
     // const isDeleted = data.deletedCount >= 1 ? true : false;

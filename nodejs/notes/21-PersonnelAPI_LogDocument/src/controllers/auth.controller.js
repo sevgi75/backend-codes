@@ -11,6 +11,20 @@ module.exports = {
   // LOGIN & LOGOUT
 
   login: async (req, res) => {
+    /*
+            #swagger.tags = ['Authentication']
+            #swagger.summary = 'Login'
+            #swagger.description = 'Login with username and password'
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: 'true',
+                schema: {
+                    username: "testF0",
+                    password: "1234"
+                }
+            }
+        */
+
     const { username, password } = req.body;
 
     if (username && password) {
@@ -59,6 +73,11 @@ module.exports = {
   },
 
   logout: async (req, res) => {
+    /*
+            #swagger.tags = ['Authentication']
+            #swagger.summary = 'Logout'
+            #swagger.description = 'Delete Token'
+    */
     /* SESSION */
     // Set session to null:
     req.session = null;
@@ -77,7 +96,7 @@ module.exports = {
     const auth = req.headers?.authorization || null; // Token ...tokenKey...
     const tokenKey = auth ? auth.split(" ") : null; // ['Token', '...tokenKey...']
 
-    let deleted = null
+    let deleted = null;
     if (tokenKey && tokenKey[0] == "Token") {
       deleted = await Token.deleteOne({ token: tokenKey[1] });
     }
@@ -87,7 +106,7 @@ module.exports = {
       error: false,
       // message: "Logout: Sessions Deleted.",
       message: "Logout: Token Deleted.",
-      deleted
+      deleted,
     });
   },
 };
