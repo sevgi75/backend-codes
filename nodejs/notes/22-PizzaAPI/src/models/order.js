@@ -45,6 +45,9 @@ const OrderSchema = new mongoose.Schema(
       transform: function () {
         return this.quantity * this.price;
       }, // Update
+      // set: function () {
+      //   return this.quantity * this.price;
+      // }, // All Conditions bir veri göndermek zorundayız
     },
   },
   {
