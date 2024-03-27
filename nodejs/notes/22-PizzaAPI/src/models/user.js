@@ -6,7 +6,7 @@ const { mongoose } = require("../configs/dbConnection");
 /* ------------------------------------------------------- */
 // User Model:
 
-const passwordEnrypt = require("../helpers/passwordEncrypt");
+const passwordEncrypt = require("../helpers/passwordEncrypt");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -21,7 +21,32 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      set: passwordEnrypt,
+      // validate: [
+      //     (password) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password),
+      //     'Password type is not correct.'
+      // ],
+      // set: passwordEncrypt
+      //? Yöntem-1:
+      set: (password) => {
+        if (
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)
+        ) {
+          return passwordEncrypt(password);
+        } else {
+          throw new Error("Password type is not correct.");
+        }
+      },
+      //? Yöntem-2:
+      //   set: (password) => {
+      //     if (
+      //       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)
+      //     ) {
+      //       return passwordEncrypt(password);
+      //     } else {
+      //       return "wrong";
+      //     }
+      //   },
+      //   validate: (password) => password != "wrong",
     },
 
     email: {
@@ -29,7 +54,10 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       unique: true,
       required: true,
-      validate: (email) => email.includes("@") && email.includes("."),
+      validate: [
+        (email) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
+        "Email type is not correct.",
+      ],
     },
 
     isActive: {
