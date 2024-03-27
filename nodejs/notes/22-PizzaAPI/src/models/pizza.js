@@ -39,3 +39,6 @@ const PizzaSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// Model:
+module.exports = mongoose.model("Pizza", PizzaSchema);
