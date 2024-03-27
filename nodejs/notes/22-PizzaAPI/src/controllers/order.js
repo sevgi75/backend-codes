@@ -22,7 +22,7 @@ module.exports = {
             `
     */
 
-    const data = await res.getModelList(Order);
+    const data = await res.getModelList(Order, {}, ["userId", "pizzaId"]);
     res.status(200).send({
       error: false,
       details: await res.getModelListDetails(Order),
@@ -52,7 +52,10 @@ module.exports = {
             #swagger.summary = "Get Single Order"
     */
 
-    const data = await Order.findOne({ _id: req.params.id });
+    const data = await Order.findOne({ _id: req.params.id }).populate([
+      "userId",
+      "pizzaId",
+    ]);
 
     res.status(200).send({
       error: false,
