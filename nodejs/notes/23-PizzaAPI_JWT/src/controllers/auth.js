@@ -44,6 +44,20 @@ module.exports = {
 
           /* SIMPLE TOKEN */
 
+          /* JWT */
+          // Kullanıcıya 2 adet anahtar göndereceğim. 1.anahtar accessInfo, 2.anahtar refrehInfo olacak.
+          // access olan anahtar kısa ömürlü ama kritik veriler, refresh olan anahtar ise uzun ömürlü kritik olmayan datalar var
+
+          const accessInfo = {
+            time: "30m",
+          };
+
+          const refreshInfo = {
+            time: "3d",
+          };
+
+          /* JWT */
+
           res.status(200).send({
             error: false,
             token: tokenData.token,
