@@ -50,7 +50,7 @@ module.exports = {
 
           const accessInfo = {
             key: process.env.ACCESS_KEY,
-            time: "30m",
+            time: process.env?.ACCESS_EXP || "30m",
             data: {
               id: user.id,
               username: user.username,
@@ -63,7 +63,7 @@ module.exports = {
 
           const refreshInfo = {
             key: process.env.REFRESH_KEY,
-            time: "3d",
+            time: process.env?.REFRESH_EXP || "3d",
             data: {
               id: user.id,
               password: user.password, // encrypted password
@@ -129,7 +129,7 @@ module.exports = {
             error: false,
             bearer: {
               access: jwt.sign(user.toJSON(), process.env.ACCESS_KEY, {
-                expiresIn: "30m",
+                expiresIn: process.env?.ACCESS_EXP || "30m",
               }), //& jwt.sign benden mongoose objesi değil JSON objesi bekler.Bu yüzden gelen mongoose objesini user.toJSON() yaparım.
             },
           });
