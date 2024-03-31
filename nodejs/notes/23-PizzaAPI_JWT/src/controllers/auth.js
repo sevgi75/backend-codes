@@ -49,18 +49,44 @@ module.exports = {
           // access olan anahtar kısa ömürlü ama kritik veriler, refresh olan anahtar ise uzun ömürlü kritik olmayan datalar var
 
           const accessInfo = {
+            key: process.env.ACCESS_KEY,
             time: "30m",
+            data: {
+              id: user.id,
+              username: user.username,
+              email: user.email,
+              password: user.password,
+              isActive: user.isActive,
+              isAdmin: user.isAdmin,
+            },
           };
 
           const refreshInfo = {
+            key: process.env.REFRESH_KEY,
             time: "3d",
+            data: {
+              id: user.id,
+              password: user.password, // encrypted password
+            },
           };
+
+          // jwt.sign(access_data, access_key, { 'expiresIn': '30m' })
+          const accessToken = jwt.sign(accessInfo.data, accessInfo.key, {
+            expiresIn: accessInfo.time,
+          });
+          const refreshToken = jwt.sign(refreshInfo.data, refreshInfo.key, {
+            expiresIn: refreshInfo.time,
+          });
 
           /* JWT */
 
           res.status(200).send({
             error: false,
             token: tokenData.token,
+            bearer: {
+              access: accessToken,
+              refresh: refreshToken,
+            },
             user,
           });
         } else {
@@ -74,6 +100,50 @@ module.exports = {
     } else {
       res.errorStatusCode = 401;
       throw new Error("Please enter username/email and password.");
+    }
+  },
+
+  refresh: async (req, res) => {
+    /*
+            #swagger.tags = ["Authentication"]
+            #swagger.summary = "JWT: Refresh"
+            #swagger.description = 'Refresh token.'
+    */
+
+    const refreshToken = req.body?.bearer?.refresh;
+
+    if (refreshToken) {
+      const refreshData = await jwt.verify(
+        refreshToken,
+        process.env.REFRESH_KEY
+      );
+      // console.log(refreshData);
+
+      if (refreshData) {
+        const user = await User.findOne({ _id: refreshData.id });
+        console.log(typeof user); //& Burada gelen obje mongoose objesidir.
+        console.log(typeof user.toJSON()); //& mongoose objesi olan user JSON objesine çevrilmiştir.
+
+        if (user && user.password == refreshData.password) {
+          res.status(200).send({
+            error: false,
+            bearer: {
+              access: jwt.sign(user.toJSON(), process.env.ACCESS_KEY, {
+                expiresIn: "30m",
+              }), //& jwt.sign benden mongoose objesi değil JSON objesi bekler.Bu yüzden gelen mongoose objesini user.toJSON() yaparım.
+            },
+          });
+        } else {
+          res.errorStatusCode = 401;
+          throw new Error("Wrong id or password.");
+        }
+      } else {
+        res.errorStatusCode = 401;
+        throw new Error("JWT refresh data is wrong.");
+      }
+    } else {
+      res.errorStatusCode = 401;
+      throw new Error("Please enter token.refresh");
     }
   },
 
