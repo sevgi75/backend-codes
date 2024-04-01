@@ -5,6 +5,7 @@
 // Order Controller:
 
 const Order = require("../models/order");
+const Pizza = require("../models/pizza");
 
 module.exports = {
   list: async (req, res) => {
@@ -27,9 +28,17 @@ module.exports = {
       customFilter = { userId: req.user.id };
     }
 
+    // const data = await res.getModelList(Order, customFilter, [
+    //   "userId",
+    //   "pizzaId",
+    // ]);
     const data = await res.getModelList(Order, customFilter, [
       "userId",
-      "pizzaId",
+      {
+        path: "pizzaId",
+        select: "-_v",
+        populate: { path: "toppingIds", select: "name" },
+      }, //"pizzaId",
     ]);
     res.status(200).send({
       error: false,
@@ -46,6 +55,11 @@ module.exports = {
             #swagger.summary = "Create Order"
     */
 
+    // get price from the pizza:
+    if (!req.body?.price) {
+      const pizzaData = await Pizza.findOne({ _id: req.body.pizzaId });
+      req.body.price = pizzaData.price;
+    }
     const data = await Order.create(req.body);
 
     res.status(201).send({
