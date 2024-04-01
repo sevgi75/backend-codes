@@ -9,6 +9,7 @@
     $ npm i morgan swagger-autogen swagger-ui-express redoc-express
     $ mkdir logs
     $ npm i jsonwebtoken
+    $ npm i nodemailer multer
     $ nodemon
 */
 const express = require("express");
