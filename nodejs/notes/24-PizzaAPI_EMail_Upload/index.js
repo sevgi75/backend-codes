@@ -48,6 +48,60 @@ app.use(require("./src/middlewares/authentication"));
 app.use(require("./src/middlewares/queryHandler"));
 
 /* ------------------------------------------------------- */
+//* EMAIL:
+// nodemailer
+// https://www.nodemailer.com/
+// https://www.npmjs.com/package/nodemailer
+// https://ethereal.email/
+
+const nodemailer = require("nodemailer");
+
+// Create Test (Fake) Account:
+// Mailim oluştu artık createTestAccount demeye gerek yok yoruma aldım.
+// nodemailer.createTestAccount().then((data) => console.log(data));
+/*
+{
+  user: 'ysik4dnygtfmh2te@ethereal.email',
+  pass: 'g9agUFuK2N3bRW3HrK',
+  smtp: { host: 'smtp.ethereal.email', port: 587, secure: false },
+  imap: { host: 'imap.ethereal.email', port: 993, secure: true },
+  pop3: { host: 'pop3.ethereal.email', port: 995, secure: true },
+  web: 'https://ethereal.email'
+}
+*/
+
+// Connec to MailServer:
+// const transporter = nodemailer.createTransport({
+//   // SMTP:
+//   host: "smtp.ethereal.email",
+//   port: 587,
+//   secure: false, // ssl, tls
+//   auth: {
+//     user: "ysik4dnygtfmh2te@ethereal.email",
+//     pass: "g9agUFuK2N3bRW3HrK",
+//   },
+// });
+// console.log(transporter);
+// transporter artık bir obje
+
+// SendMail:
+// transporter.sendMail(
+//   {
+//     from: "ysik4dnygtfmh2te@ethereal.email",
+//     to: "qadir@clarusway.com", // 'a@b.com, c@d.com'
+//     subject: "Hello",
+//     text: "Hello There. How are you?",
+//     html: "<b>Hello There.</b> <p>How are you?</p>",
+//   },
+//   (error, success) => {
+//     success ? console.log("SUCCESS", success) : console.log("ERROR", error);
+//   }
+// );
+
+//* GoogleMail (gmail)
+//* Google -> AccountHome -> Security -> Two-Step-Verify -> App-Passwords
+
+/* ------------------------------------------------------- */
 // Routes:
 
 // routes/index.js:
