@@ -22,11 +22,21 @@ module.exports = {
             `
         */
 
-    const data = await res.getModelList(Reservation);
+    // Başka bir kullanıcı datasını görmesini engelle:
+    let customFilter = {};
+    if (!req.user.isAdmin && !req.user.isStaff) {
+      customFilter = { userId: req.user._id };
+    }
+    const data = await res.getModelList(Reservation, customFilter, [
+      { path: "userId", select: "username firstName lastName" },
+      { path: "carId" },
+      { path: "createdId", select: "username" },
+      { path: "updatedId", select: "username" },
+    ]);
 
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(Reservation),
+      details: await res.getModelListDetails(Reservation, customFilter),
       data,
     });
   },
@@ -68,8 +78,20 @@ module.exports = {
             #swagger.summary = "Get Single Reservation"
         */
 
-    // const id = req.Reservation.isAdmin ? req.params.id : req.Reservation.id;
-    // const data = await Reservation.findOne({ _id: id });
+    // Başka bir kullanıcı datasını görmesini engelle:
+    let customFilter = {};
+    if (!req.user.isAdmin && !req.user.isStaff) {
+      customFilter = { userId: req.user._id };
+    }
+    const data = await Reservation.findOne({
+      _id: req.params.id,
+      ...customFilter,
+    }).populate([
+      { path: "userId", select: "username firstName lastName" },
+      { path: "carId" },
+      { path: "createdId", select: "username" },
+      { path: "updatedId", select: "username" },
+    ]);
 
     res.status(200).send({
       error: false,
@@ -97,10 +119,10 @@ module.exports = {
 
     // updatedId verisini req.user'dan al:
     req.body.updatedId = req.user._id;
-    // if (!req.Reservation.isAdmin) req.params.id = req.Reservation._id;
-    // const data = await Reservation.updateOne({ _id: req.params.id }, req.body, {
-    //   runValidators: true,
-    // });
+
+    const data = await Reservation.updateOne({ _id: req.params.id }, req.body, {
+      runValidators: true,
+    });
 
     res.status(202).send({
       error: false,
