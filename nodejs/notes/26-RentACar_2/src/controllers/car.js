@@ -5,6 +5,7 @@
 // Car Controller:
 
 const Car = require("../models/car");
+const Reservation = require("../models/reservation");
 
 module.exports = {
   list: async (req, res) => {
@@ -24,6 +25,28 @@ module.exports = {
 
     // Musait olmayan araçları listeleme:
     let customFilter = { isAvailable: true };
+
+    /* TARİHE GÖRE LİSTELE */
+    // List by dateFilter:
+    // URL?startDate=2024-01-01&endDate=2024-01-10
+
+    const { startDate: getStartDate, endDate: getEndDate } = req.query;
+
+    if (getStartDate && getEndDate) {
+      const reservedCars = await Reservation.find({
+        $nor: [
+          { startDate: { $gt: getEndDate } }, // gt: >
+          { endDate: { $lt: getStartDate } }, // lt: <
+        ],
+      });
+      console.log(reservedCars);
+    } else {
+      req.errorStatusCode = 401;
+      throw new Error("startDate and endDate queries are required.");
+    }
+
+    /* TARİHE GÖRE LİSTELE */
+
     const data = await res.getModelList(Car, customFilter, [
       { path: "createdId", select: "username" },
       { path: "updatedId", select: "username" },
