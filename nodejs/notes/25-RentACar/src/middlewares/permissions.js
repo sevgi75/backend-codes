@@ -6,7 +6,8 @@
 
 module.exports = {
   isLogin: (req, res, next) => {
-    if (req.user) {
+    // return next();
+    if (req.user && req.user.isActive) {
       next();
     } else {
       res.errorStatusCode = 403;
@@ -14,8 +15,13 @@ module.exports = {
     }
   },
 
-  isStaffOrisAdmin: (req, res, next) => {
-    if (req.user && (req.user.isAdmin || req.user.isStaff)) {
+  isStaff: (req, res, next) => {
+    // return next();
+    if (
+      req.user &&
+      req.user.isActive &&
+      (req.user.isAdmin || req.user.isStaff)
+    ) {
       next();
     } else {
       res.errorStatusCode = 403;
@@ -24,7 +30,8 @@ module.exports = {
   },
 
   isAdmin: (req, res, next) => {
-    if (req.user && req.user.isAdmin) {
+    // return next();
+    if (req.user && req.user.isActive && req.user.isAdmin) {
       next();
     } else {
       res.errorStatusCode = 403;
