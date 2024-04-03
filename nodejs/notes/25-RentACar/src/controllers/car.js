@@ -44,6 +44,10 @@ module.exports = {
             }
         */
 
+    // createdId ve updatedId verisini req.user'dan al:
+    req.body.createdId = req.user._id;
+    req.body.updatedId = req.user._id;
+
     const data = await Car.create(req.body);
 
     res.status(201).send({
@@ -58,8 +62,7 @@ module.exports = {
             #swagger.summary = "Get Single Car"
         */
 
-    // const id = req.Car.isAdmin ? req.params.id : req.Car.id;
-    // const data = await Car.findOne({ _id: id });
+    const data = await Car.findOne({ _id: req.params.id });
 
     res.status(200).send({
       error: false,
@@ -80,10 +83,12 @@ module.exports = {
             }
         */
 
-    // if (!req.Car.isAdmin) req.params.id = req.Car._id;
-    // const data = await Car.updateOne({ _id: req.params.id }, req.body, {
-    //   runValidators: true,
-    // });
+    // updatedId verisini req.user'dan al:
+    req.body.updatedId = req.user._id;
+
+    const data = await Car.updateOne({ _id: req.params.id }, req.body, {
+      runValidators: true,
+    });
 
     res.status(202).send({
       error: false,

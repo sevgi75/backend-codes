@@ -49,6 +49,11 @@ module.exports = {
             }
         */
 
+    // Gelen veri ne olursa olsun req.body deki isStaff her koşulda false olsun.
+    // Gelen veri ne olursa olsun req.body deki isAdmin her koşulda false olsun.
+    req.body.isStaff = false;
+    req.body.isAdmin = false;
+
     const data = await User.create(req.body);
 
     res.status(201).send({
@@ -63,8 +68,13 @@ module.exports = {
             #swagger.summary = "Get Single User"
         */
 
-    // const id = req.user.isAdmin ? req.params.id : req.user.id
-    // const data = await User.findOne({ _id: id })
+    // Başka bir kullanıcıyı görmesini engelle:
+    let customFilter = { _id: req.params.id };
+    if (!req.user.isAdmin && !req.user.isStaff) {
+      customFilter = { _id: req.user._id };
+    }
+
+    const data = await User.findOne({ customFilter });
 
     res.status(200).send({
       error: false,
@@ -90,8 +100,20 @@ module.exports = {
             }
         */
 
-    // if (!req.user.isAdmin) req.params.id = req.user._id
-    // const data = await User.updateOne({ _id: req.params.id }, req.body, { runValidators: true })
+    // Admin olmayan isStaff ve isAdmin durumunu değiştiremez.
+    if (!req.user.isAdmin) {
+      delete req.body.isStaff;
+      delete req.body.isAdmin;
+    }
+    // Başka bir kullanıcıyı güncellemesini engelle:
+    let customFilter = { _id: req.params.id };
+    if (!req.user.isAdmin && !req.user.isStaff) {
+      customFilter = { _id: req.user._id };
+    }
+
+    const data = await User.updateOne(customFilter, req.body, {
+      runValidators: true,
+    });
 
     res.status(202).send({
       error: false,
