@@ -33,13 +33,34 @@ module.exports = {
     const { startDate: getStartDate, endDate: getEndDate } = req.query;
 
     if (getStartDate && getEndDate) {
-      const reservedCars = await Reservation.find({
-        $nor: [
-          { startDate: { $gt: getEndDate } }, // gt: >
-          { endDate: { $lt: getStartDate } }, // lt: <
-        ],
-      });
-      console.log(reservedCars);
+      // Belirtilen tarihlerde reserve edilmiş araçları getir:
+      const reservedCars = await Reservation.find(
+        {
+          $nor: [
+            { startDate: { $gt: getEndDate } }, // gt: >
+            { endDate: { $lt: getStartDate } }, // lt: <
+          ],
+        },
+        { _id: 0, carId: 1 }
+      ).distinct("carId");
+      // console.log(reservedCars);
+
+      // Gelen Data:
+      // [
+      //   { carId: new ObjectId("660fd1b4cb86caeef6e5f3cd") },
+      //   { carId: new ObjectId("660fd1d3cb86caeef6e5f3d1") }
+      // ]
+      // convert to Filtered Data (distinct):
+      // [
+      //   new ObjectId("660fd1b4cb86caeef6e5f3cd"),
+      //   new ObjectId("660fd1d3cb86caeef6e5f3d1")
+      // ]
+
+      // Filter objesine NotIN (nin) ekle:
+      if (reservedCars.length) {
+        customFilter._id = { $nin: reservedCars };
+      }
+      console.log(customFilter);
     } else {
       req.errorStatusCode = 401;
       throw new Error("startDate and endDate queries are required.");
@@ -47,6 +68,7 @@ module.exports = {
 
     /* TARİHE GÖRE LİSTELE */
 
+    // const data = await res.getModelList(Car, { _id: { $nin: ['carId12345667', 'carId12345667'] } }
     const data = await res.getModelList(Car, customFilter, [
       { path: "createdId", select: "username" },
       { path: "updatedId", select: "username" },
