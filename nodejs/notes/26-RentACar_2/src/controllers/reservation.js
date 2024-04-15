@@ -67,6 +67,7 @@ module.exports = {
     // Kullanıcının çakışan tarihlerde başka bir reservesi var mı?
     const userReservationInDates = await Reservation.findOne({
       userId: req.body.userId,
+      // carId: req.body.carId, // Farklı bir araba kiralanabilir
       $nor: [
         { startDate: { $gt: req.body.endDate } }, // gt: >
         { endDate: { $lt: req.body.startDate } }, // lt: <
