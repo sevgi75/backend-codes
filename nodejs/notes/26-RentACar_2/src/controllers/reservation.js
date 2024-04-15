@@ -64,12 +64,31 @@ module.exports = {
     req.body.createdId = req.user._id;
     req.body.updatedId = req.user._id;
 
-    const data = await Reservation.create(req.body);
-
-    res.status(201).send({
-      error: false,
-      data,
+    // Kullanıcının çakışan tarihlerde başka bir reservesi var mı?
+    const userReservationInDates = await Reservation.findOne({
+      userId: req.body.userId,
+      $nor: [
+        { startDate: { $gt: req.body.endDate } }, // gt: >
+        { endDate: { $lt: req.body.startDate } }, // lt: <
+      ],
     });
+
+    // console.log(userReservationInDates);
+
+    if (userReservationInDates) {
+      res.errorStatusCode = 400;
+      throw new Error(
+        "It cannot be added because there is another reservation with the same date.",
+        { cause: { userReservationInDates: userReservationInDates } }
+      );
+    } else {
+      const data = await Reservation.create(req.body);
+
+      res.status(201).send({
+        error: false,
+        data,
+      });
+    }
   },
 
   read: async (req, res) => {
