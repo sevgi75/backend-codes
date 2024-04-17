@@ -139,9 +139,8 @@ module.exports = {
             #swagger.tags = ["Users"]
             #swagger.summary = "Delete User"
     */
-    // Sadece kendi kaydını silebilir:
-    // Permission tarafında isAdmin kontrolü yapıldığı için burada gerek kalmadı.
-    //    const customFilters = req.user?.isAdmin ? { _id: req.params.id } : {}
+
+    // Permission tarafında permissions.isAdmin kontrolü yapıldığı için burada gerek kalmadı.
 
     if (req.params.id != req.user._id) {
       const data = await User.deleteOne({ _id: req.params.id });
