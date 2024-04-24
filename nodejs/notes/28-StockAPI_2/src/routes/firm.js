@@ -9,7 +9,7 @@ const router = require("express").Router();
 const firm = require("../controllers/firm");
 const permissions = require("../middlewares/permissions");
 
-// URL: /brands
+// URL: /firms
 
 router
   .route("/(:id)?")
