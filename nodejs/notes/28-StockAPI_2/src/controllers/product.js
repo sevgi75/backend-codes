@@ -22,7 +22,7 @@ module.exports = {
             `
         */
 
-    const data = await res.getModelList(Product);
+    const data = await res.getModelList(Product, {}, ["categoryId", "brandId"]);
 
     res.status(200).send({
       error: false,
@@ -60,16 +60,22 @@ module.exports = {
     console.log("read run.");
     if (req.params?.id) {
       // Single:
-      const data = await Product.findOne({ _id: req.params.id });
+      const data = await Product.findOne({ _id: req.params.id }).populate([
+        "categoryId",
+        "brandId",
+      ]);
       res.status(200).send({
         error: false,
         data,
       });
     } else {
-      const data = await res.getModelList(Product);
+      // All:
+      const data = await res.getModelList(Product, {}, [
+        "categoryId",
+        "brandId",
+      ]);
 
       res.status(200).send({
-        // All:
         error: false,
         details: await res.getModelListDetails(Product),
         data,
